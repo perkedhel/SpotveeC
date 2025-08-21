@@ -8,7 +8,7 @@ on:
         required: true
       CHANGEVERSION:
         description: 'SpotveeC Version Number'
-        required: false
+        required: true
       USEACTIONSEEVEE:
         description: 'Get EeveeSpotify from latest EeveeSpotfiy build action'
         required: true
@@ -16,10 +16,10 @@ on:
         type: boolean
       EEVEEVERSION:
         description: 'EeveeSpotify Version'
-        required: false
+        required: true
       EEVEEREPO:
         description: 'Override the repo for EeveeSpotify'
-        required: false
+        required: true
 
 jobs:
   build:
@@ -203,7 +203,7 @@ jobs:
     - name: Download EeveeSpotify .deb file from artifacts
       if: ${{ github.event.inputs.USEACTIONSEEVEE == 'true' }}
       run: |
-        workflow_run_id=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ env.EEVEEREPO }}/actions/workflows/build-swift.yml/runs?status=success&per_page=1" | jq -r '.workflow_runs[0].id')
+        workflow_run_id=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ env.EEVEEREPO }}/actions/workflows/build-and-release-swift.yml/runs?status=success&per_page=1" | jq -r '.workflow_runs[0].id')
         echo "Workflow ID: $workflow_run_id"
         eevee_asset=$(curl -sL -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ env.EEVEEREPO }}/actions/runs/$workflow_run_id/artifacts | jq -r '.artifacts[] | select(.name | test("debug|arm.deb") | not) | .archive_download_url')
         echo "Downloading From: $eevee_asset"
@@ -376,7 +376,7 @@ jobs:
 
     - name: Run AltStore Cyan
       run: |
-        Cyan -i "${{ env.spotifypath }}" -o "${{ env.componentspath }}/SpotveeC.v${{ env.CHANGEVERSION }}_v${{ env.VANILLASPOTIFYVERSION }}_ALTSTORESOURCE_ONLY.ipa" -v ${{ env.CHANGEVERSION }} -b com.yodaluca23.SpotveeC -f "${{ env.orion }}" "${{ env.swiftprotobuf }}" "${{ env.eevee-arm64 }}" -u -w
+        Cyan -i "${{ env.spotifypath }}" -o "${{ env.componentspath }}/SpotveeC.v${{ env.CHANGEVERSION }}_v${{ env.VANILLASPOTIFYVERSION }}_ALTSTORESOURCE_ONLY.ipa" -v ${{ env.CHANGEVERSION }} -b com.spotify.client -f "${{ env.orion }}" "${{ env.swiftprotobuf }}" "${{ env.eevee-arm64 }}" -u -w
         echo "altpatchedspotify=${{ env.componentspath }}/SpotveeC.v${{ env.CHANGEVERSION }}_v${{ env.VANILLASPOTIFYVERSION }}_ALTSTORESOURCE_ONLY.ipa"
         echo "altpatchedspotify=${{ env.componentspath }}/SpotveeC.v${{ env.CHANGEVERSION }}_v${{ env.VANILLASPOTIFYVERSION }}_ALTSTORESOURCE_ONLY.ipa" >> $GITHUB_ENV
         echo "AltStore Patched Spotify .ipa Located: ${{ env.altpatchedspotify }}"
