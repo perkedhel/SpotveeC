@@ -5,10 +5,14 @@ on:
     inputs:
       SPOTURL:
         description: 'Direct URL to Spotify .ipa'
+        default: ""
         required: true
+        type: string
       CHANGEVERSION:
         description: 'SpotveeC Version Number'
+        default: "9.0.72"
         required: true
+        type: string
       USEACTIONSEEVEE:
         description: 'Get EeveeSpotify from latest EeveeSpotfiy build action'
         required: true
@@ -16,10 +20,14 @@ on:
         type: boolean
       EEVEEVERSION:
         description: 'EeveeSpotify Version'
+        default: "swift6.1.1"
         required: true
+        type: string
       EEVEEREPO:
         description: 'Override the repo for EeveeSpotify'
+        default: "whoeevee/EeveeSpotifyReborn"
         required: true
+        type: string
 
 jobs:
   build:
