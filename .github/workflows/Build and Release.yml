@@ -10,7 +10,7 @@ on:
         type: string
       CHANGEVERSION:
         description: 'SpotveeC Version Number'
-        default: "9.0.84"
+        default: "9.0.86"
         required: true
         type: string
       USEACTIONSEEVEE:
@@ -20,7 +20,7 @@ on:
         type: boolean
       EEVEEVERSION:
         description: 'EeveeSpotify Version'
-        default: "swift6.1.5"
+        default: "swift6.1.6"
         required: true
         type: string
       EEVEEREPO:
