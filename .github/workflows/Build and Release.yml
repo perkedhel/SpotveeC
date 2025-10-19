@@ -10,7 +10,7 @@ on:
         type: string
       CHANGEVERSION:
         description: 'SpotveeC Version Number'
-        default: "9.0.86"
+        default: "9.0.88"
         required: true
         type: string
       USEACTIONSEEVEE:
