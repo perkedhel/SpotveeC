@@ -20,7 +20,7 @@ on:
         type: boolean
       EEVEEVERSION:
         description: 'EeveeSpotify Version'
-        default: "swift6.2.1"
+        default: "swift6.2.2"
         required: true
         type: string
       EEVEEREPO:
